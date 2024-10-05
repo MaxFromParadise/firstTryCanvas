@@ -67,6 +67,11 @@
 					drawLines(e);
 				}
 			});
+			canv.addEventListener('touchmove', (e) => {
+				if (isDrawing) {
+					drawLines(e);
+				}
+			});
 			// canv.addEventListener('mouseup', () => {
 			// 	isDrawing = false;
 			// 	ctx.closePath();
