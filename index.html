@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>rectExample</title>
+		<meta charset="utf-8" />
+		<style>
+			body {
+				width: 100vw;
+				height: 100vh;
+				background: #35003a;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="example">Обновите браузер</canvas>
+		<script>
+			const canv = document.getElementById('example'),
+				ctx = example.getContext('2d');
+			const parent = document.body;
+			canv.width = parent.clientWidth;
+			canv.height = parent.clientHeight;
+
+			ctx.strokeRect(13, 13, 270, 270);
+			ctx.strokeRect(18, 18, 260, 260);
+
+			for (let i = 0; i < 8; i += 2) {
+				for (let j = 0; j < 8; j += 2) {
+					ctx.fillRect(20 + i * 32 + 32, 20 + j * 32, 32, 32);
+					ctx.fillRect(20 + i * 32, 20 + 32 + j * 32, 32, 32);
+				}
+			}
+
+			let isDrawing = true;
+
+			ctx.strokeStyle = '#c5b2c7';
+
+			function drawLine(event, x, y) {
+				ctx.clearRect(0, 0, canv.width, canv.height);
+
+				ctx.moveTo(x, y);
+				ctx.lineTo(event.clientX, event.clientY);
+				ctx.stroke();
+			}
+
+			function drawLines(e) {
+				ctx.beginPath();
+				drawLine(e, canv.width / 2, canv.height / 2);
+				drawLine(e, 0, 0);
+				drawLine(e, canv.width, canv.height);
+				drawLine(e, canv.width, 0);
+				drawLine(e, 0, canv.height);
+				drawLine(e, canv.width / 2, canv.height);
+				drawLine(e, canv.width, canv.height / 2);
+				drawLine(e, 0, canv.height / 2);
+				drawLine(e, canv.width / 2, 0);
+			}
+
+			// canv.addEventListener('mousedown', (e) => {
+			// 	isDrawing = true;
+			// 	drawLines(e);
+			// });
+			canv.addEventListener('mousemove', (e) => {
+				if (isDrawing) {
+					drawLines(e);
+				}
+			});
+			// canv.addEventListener('mouseup', () => {
+			// 	isDrawing = false;
+			// 	ctx.closePath();
+			// 	ctx.clearRect(0, 0, canv.width, canv.height);
+			// });
+			// canv.addEventListener('mouseout', () => {
+			// 	ctx.clearRect(0, 0, canv.width, canv.height);
+			// });
+			// canv.addEventListener('mouseover', (e) => {
+			// 	if (isDrawing) {
+			// 		drawLines(e);
+			// 	}
+			// });
+
+			// ctx.fillRect(2 * 32, 2 * 32, 32, 32);
+		</script>
+	</body>
+</html>
